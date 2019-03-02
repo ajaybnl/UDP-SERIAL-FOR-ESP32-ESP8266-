@@ -1,7 +1,9 @@
 # UDP-SERIAL-FOR-ESP32-ESP8266-
 This will show an Example on how UDP Serial on Esp32 and Esp8266 Works.
 
-On PC / Linux Use : https://sourceforge.net/projects/scriptcommunicator/ Freeware
+On PC / Linux / MAC  Use : https://sourceforge.net/projects/scriptcommunicator/ 
+
+its a Freeware and Available for All OS'es Listed.
 
 How to Set up Script Communicator:
 
@@ -15,4 +17,6 @@ If you program your ESP with this sketch by filling WIFI Credentials. You will s
 For More Info Watch My Video: https://www.youtube.com/watch?v=AWLJwVyLJ7k
 
 You can also plot data to Graph with UDP. Click ajaybnl on top to see UDP-GRAPH-FOR-ESP32-ESP8266
-Have Fun
+
+Feel free to mail me more tutorials at : 
+Ajaybnl -at- gmail.com
