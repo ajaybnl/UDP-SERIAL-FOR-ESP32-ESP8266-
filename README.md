@@ -18,5 +18,5 @@ For More Info Watch My Video: https://www.youtube.com/watch?v=AWLJwVyLJ7k
 
 You can also plot data to Graph with UDP. Click ajaybnl on top to see UDP-GRAPH-FOR-ESP32-ESP8266
 
-Feel free to mail me more tutorials at : 
+Feel free to mail me for more tutorials at : 
 Ajaybnl -at- gmail.com
