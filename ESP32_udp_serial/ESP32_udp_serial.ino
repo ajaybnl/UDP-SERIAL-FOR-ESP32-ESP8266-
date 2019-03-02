@@ -80,7 +80,7 @@ char text[50];
     
     
 	  //Send
-      udp.printf(udptext);
+      udp.printf(text);
       udp.endPacket();      
       udp.stop();
 
