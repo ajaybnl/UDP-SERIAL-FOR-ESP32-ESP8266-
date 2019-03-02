@@ -10,7 +10,7 @@ How to Set up Script Communicator:
 3) From Down : Select Current Interface: socket
 4) Click Connect and close
 
-)If you program your ESP with this sketch by filling WIFI Credentials. You will see Text in the Main Window.
+If you program your ESP with this sketch by filling WIFI Credentials. You will see Text in the Main Window.
 
 For More Info Watch My Video: https://www.youtube.com/watch?v=AWLJwVyLJ7k
 
