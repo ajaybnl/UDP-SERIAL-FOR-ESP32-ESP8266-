@@ -74,11 +74,9 @@ void loop()
 
       //Data to Send
       int var1 = analogRead(0);
-      int var2 = sin(var1)*100;
-
-
+      
       //       Data,size
-      snprintf(text, 50, "%d,%d\n", var1, var2);
+      snprintf(text, 50, "Esp32 data %d\n", var1);
       //You can add as many variables by putting a comma and \n at end of line
 
 
