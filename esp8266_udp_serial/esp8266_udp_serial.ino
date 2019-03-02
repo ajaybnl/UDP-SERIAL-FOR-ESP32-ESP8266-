@@ -76,7 +76,7 @@ void loop()
       //Send
       snprintf(text, 50, " ESP8266 Data %d\n", analogRead(A0)); // For Multiple Variables just add like this : snprintf(udptext, 40, "%d,%d,%d\n",d,b,c);
 
-udp.println(text);
+      udp.printf(text);
 
       /* OR
         udp.write(text);
