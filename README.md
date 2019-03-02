@@ -20,3 +20,11 @@ You can also plot data to Graph with UDP. Click ajaybnl on top to see UDP-GRAPH-
 
 Feel free to mail me for more tutorials at : 
 Ajaybnl -at- gmail.com
+
+<br><br><br><br>
+
+<b>TIP: Use Dark Color Schemes on Arduino. More at: https://github.com/jeffThompson/DarkArduinoTheme</b><br><br>
+
+
+
+<img src="https://raw.githubusercontent.com/jeffThompson/DarkArduinoTheme/master/screenshot.png"></img>
