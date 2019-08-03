@@ -1,33 +1,32 @@
 /*Created by Ajay Kumar (ajaybnl@gmail.com) Youtube: Ajay Sudhera
-   Download Free App Script Communicator for UDP Serial
-   Check My Yourtube Video for How to View UDP Serial :
-   https://www.youtube.com/watch?v=AWLJwVyLJ7k
+   
+   Check My Yourtube Video for How to View UDP Graph :
+  https://www.youtube.com/watch?v=ssz-ebdW3ss
 
-   This example shows how to connect and send data to you PC (To Script Communicator)
+   This example shows how to connect and send data to you PC (To TelemetryViewer)
 */
 
 #include <ESP8266WiFi.h>
 #include <WiFiudp.h>
 
+
 const char* ssid = "FILL_HERE";
 const char* password = "FILL_HERE";
 
-WiFiUDP udp;
+//UDP
+
+//SET YOUR PC IP ADDRESS (YOU GOT FROM MODEM)
+IPAddress udpip(192, 168, 100, 2);
+
+//SET PORTS TO CONNECT
+int printport = 8080;
+
+int chartport = 8081;
+
+int udplocalport = 3424; //no use
 
 
-//(Set your Static IP ADDRESS in your PC for Ease)
-
-// Your PC IP ADDRESS
-IPAddress udpAddress(10, 0, 0, 30); // Either 192.168.1.2 or anthing (Check Wifi Status)
-
-unsigned int udpPort = 8080;  // port to connect
-
-
-unsigned int udplocalport = 3424; //not needed to change
-
-
-//Change to enable/disable serial
-#define DEBUG 1   //0 for disabling
+WiFiUDP Udp;
 
 
 void setup()
@@ -45,9 +44,7 @@ void setup()
   if (WiFi.status() == WL_CONNECTED) {
     Serial.println("connected");
 
-    udp.begin(udplocalport); //8080 port
-
-    Serial.printf("Client IP %s, UDP port %d\n", WiFi.localIP().toString().c_str(), udplocalport);
+       Serial.printf("Client IP %s, UDP port %d\n", WiFi.localIP().toString().c_str(), udplocalport);
   } else {
     Serial.println("Cannot Connect To WIfi");
   }
@@ -58,41 +55,150 @@ void setup()
 
 void loop()
 {
-  char text[50];
-  
-//Check Wifi Status
+  //UDP
+/*
+How to send debug and measurements to UDP based server on Windows/Mac/Linux PC
+
+Solution:
+
+udpprint("something"); 
+--------------------
+This will print a line on ScriptCommunicator or Udp text programs.
+You can use udpprint with Int, Float, Double, Long, Unsigned Long
+
+udpchart(value1); 
+--------------------
+Or
+udpchart(value1,value2); 
+--------------------
+This will appear on a chart on TelemetryViewer or Text in a UDP Text Program.
+
+You can use udpprint with Int, Float, Double, Long, Unsigned Long
+
+You can use udpprint and udpchart both simultainously (open TelemetryViewer with UDP port 8081 & Open ScriptCommunicator with Port 8080 UDP)
+
+For more Info view my videos: https://www.youtube.com/channel/UCd39IeKZOUHnexE4m2iBnhg
+
+*/
+
+bool udpprint("Success!");
+
+delay(1000);
+
+}
+
+//UDP
+String ipToString(IPAddress ip) {
+  String s = "";
+  for (int i = 0; i < 4; i++)
+    s += i  ? "." + String(ip[i]) : String(ip[i]);
+  return s;
+}
+
+
+//UDP Chart
+bool udpchart(int a, int b) {
+  String str = String(a) + "," + String(b);
+  return (udpchart(str));
+}
+
+bool udpchart(float a, float b) {
+  String str = String(a) + "," + String(b);
+  return (udpchart(str));
+}
+
+bool udpchart(long a, long b) {
+  String str = String(a) + "," + String(b);
+  return (udpchart(str));
+}
+
+
+bool udpchart(float a) {
+  String str = String(a);
+  return (udpchart(str));
+}
+
+bool udpchart(int a) {
+  String str = String(a);
+  return (udpchart(str));
+}
+
+bool udpchart(double a) {
+  String str = String(a);
+  return (udpchart(str));
+}
+
+bool udpchart(unsigned long a) {
+  String str = String(a);
+  return (udpchart(str));
+}
+
+//UDP Print
+bool udpprint(float a) {
+  String str = String(a); 
+  return (udpprint(str));
+}
+bool udpprint(int a) {
+  String str = String(a);
+  return (udpprint(str));
+}
+
+bool udpprint(double a) {
+  String str = String(a);
+  return (udpprint(str));
+}
+
+bool udpprint(long a) {
+  String str = String(a);
+  return (udpprint(str));
+}
+
+bool udpprint(unsigned long a) {
+  String str = String(a);
+  return (udpprint(str));
+}
+
+
+bool udpprint(String text1) {
+   bool result=false;
+  String str = text1;
+//Construct Char* from String    
+  str += "\n";
+  int n = str.length(); 
+  char text[n + 1];     
+  strcpy(text, str.c_str()); 
+  result = udp_write(text,printport);
+  return (result);
+}
+
+bool udpchart(String text1) {
+  bool result=false;
+  String str = text1;
+//Construct Char* from String    
+  str += "\n";
+  int n = str.length(); 
+  char text[n + 1];     
+  strcpy(text, str.c_str()); 
+  result = udp_write(text, chartport);
+  return (result);
+}
+
+bool udp_write(char* text, int port) {
+  //UDP Write
+
   if (WiFi.status() == WL_CONNECTED) {
-
-
-    udp.begin(udplocalport);
-    delay(10);
-
-    //Connect To IP
-    if (udp.beginPacket(udpAddress, udpPort) == 0) {
-      udp.stop();
-      Serial.println("UDP Connection Failed");
+    Udp.stop();
+    Udp.begin(udplocalport);
+    delay(10); //Tweak this
+    if (Udp.beginPacket(udpip, port)) {
+      Udp.write(text);
+      Udp.endPacket();
+      return (true);
     } else {
-
-      //Send
-      snprintf(text, 50, " ESP8266 Data %d\n", analogRead(A0)); // For Multiple Variables just add like this : snprintf(udptext, 40, "%d,%d,%d\n",d,b,c);
-
-      udp.printf(text);
-
-      /* OR
-        udp.write(text);
-            udp.write("\n");
-
-            //Or 
-            udp.println(text);
-            
-      */
-
-
-      udp.endPacket();
-
-      Serial.println("UDP Connection Sucessful");
+      Udp.stop();
+      return (false);
     }
-    delay(1000);
+  } else {
+    return (false);
   }
-
 }
